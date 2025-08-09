@@ -25,24 +25,29 @@ class InventoryItemWidget extends StatelessWidget {
             name: characher.name,
             price: characher.price,
             imageUrl: characher.imageUrl,
-            // textColor: characher.isArtificialSpecs ? context.theme.colors.primaryContainer : colorByRarity(context),
             textColor: context.theme.colors.primary,
             borderColor:
                 characher.isArtificialSpecs
                     ? context.theme.colors.surfaceContainer
                     : colorByRarity(context).withAlpha(200),
             //TODO переделать для больших чисел
-            onImageChild: Container(
-              width: 18,
-              height: 18,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: context.theme.colors.primary),
-              child: Center(
-                child: Text(
-                  '${characher.leftRatings}',
-                  style: context.theme.text.labelSmall?.copyWith(color: context.theme.colors.surfaceContainerHighest),
-                ),
-              ),
-            ),
+            onImageChild:
+                characher.isArtificialSpecs
+                    ? null
+                    : Container(
+                      width: 18,
+                      height: 18,
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: colorByRarity(context)),
+                      child: Center(
+                        child: Text(
+                          '${characher.leftRatings}',
+                          style: context.theme.text.labelSmall?.copyWith(
+                            color: context.theme.colors.onPrimary,
+                            height: 1,
+                          ),
+                        ),
+                      ),
+                    ),
           ),
       chest:
           (chest) => _CardWidget(
@@ -100,6 +105,7 @@ class _CardWidget extends StatelessWidget {
                   height: 100,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
                   clipBehavior: Clip.hardEdge,
+                  //TODO заменить на network
                   child: Image.asset(
                     'assets/cat.png',
                     fit: BoxFit.cover,

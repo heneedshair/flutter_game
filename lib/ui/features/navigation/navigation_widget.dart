@@ -25,15 +25,28 @@ class NavigationWidget extends ElementaryWidget<NavigationWidgetModel> {
               foregroundColor: context.theme.colors.onSecondary,
               title: UserTabWidget(onUserTap: () => wm.onUserTap()),
             ),
-            body: EntityStateNotifierBuilder(
+            body: EntityStateNotifierBuilder<int?>(
               listenableEntityState: wm.currentTabListenable,
               builder:
-                  (_, index) => switch (index) {
-                    0 => const Center(),
-                    1 => const InventoryWidget(),
-                    null => const SizedBox.shrink(),
-                    int() => const SizedBox.shrink(),
-                  },
+                  (_, index) => AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    reverseDuration: const Duration(milliseconds: 200),
+                    switchInCurve: Curves.easeIn,
+                    switchOutCurve: Curves.easeOut,
+                    transitionBuilder: (child, animation) {
+                      final offsetAnimation = Tween<Offset>(
+                        begin: const Offset(1.0, 0),
+                        end: Offset.zero,
+                      ).animate(animation);
+                      return SlideTransition(position: offsetAnimation, child: child);
+                    },
+                    child: switch (index) {
+                      0 => const Center(key: ValueKey(0)),
+                      1 => const InventoryWidget(key: ValueKey(1)),
+                      null => const SizedBox.shrink(key: ValueKey('empty')),
+                      int() => const SizedBox.shrink(key: ValueKey('empty')),
+                    },
+                  ),
             ),
             bottomNavigationBar: EntityStateNotifierBuilder(
               listenableEntityState: wm.currentTabListenable,

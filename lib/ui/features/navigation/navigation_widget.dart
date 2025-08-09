@@ -20,7 +20,9 @@ class NavigationWidget extends ElementaryWidget<NavigationWidgetModel> {
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              iconTheme: IconThemeData(color: context.theme.colors.secondaryFixedDim),
+              toolbarHeight: 62,
+              backgroundColor: context.theme.colors.secondary,
+              foregroundColor: context.theme.colors.onSecondary,
               title: UserTabWidget(onUserTap: () => wm.onUserTap()),
             ),
             body: EntityStateNotifierBuilder(

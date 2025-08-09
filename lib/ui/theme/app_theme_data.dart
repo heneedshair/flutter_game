@@ -24,7 +24,10 @@ abstract final class AppThemeData {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: colors.surface,
-      unselectedIconTheme: IconThemeData(color: colors.secondaryFixedDim),
+      selectedItemColor: colors.secondary,
+      unselectedItemColor: colors.secondaryFixedDim,
+      selectedLabelStyle: const TextStyle(fontSize: 14, height: 1),
+      unselectedLabelStyle: const TextStyle(fontSize: 12, height: 1),
     ),
   );
 }

@@ -31,23 +31,19 @@ class InventoryItemWidget extends StatelessWidget {
                     ? context.theme.colors.surfaceContainer
                     : colorByRarity(context).withAlpha(200),
             //TODO переделать для больших чисел
-            onImageChild:
-                characher.isArtificialSpecs
-                    ? null
-                    : Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: colorByRarity(context)),
-                      child: Center(
-                        child: Text(
-                          '${characher.leftRatings}',
-                          style: context.theme.text.labelSmall?.copyWith(
-                            color: context.theme.colors.onPrimary,
-                            height: 1,
-                          ),
-                        ),
-                      ),
+            onImageChild: Stack(
+              children: [
+                if (!characher.isArtificialSpecs)
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6.2),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: colorByRarity(context)),
+                    child: Text(
+                      '${characher.leftRatings}',
+                      style: context.theme.text.labelMedium?.copyWith(color: context.theme.colors.onPrimary, height: 1),
                     ),
+                  ),
+              ],
+            ),
           ),
       chest:
           (chest) => _CardWidget(

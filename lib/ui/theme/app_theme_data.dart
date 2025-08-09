@@ -22,6 +22,7 @@ abstract final class AppThemeData {
       surfaceContainerLow: colors.surfaceContainerLow,
       onSurface: colors.primary,
     ),
+    splashColor: colors.surface.withAlpha(50),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: colors.surface,
       selectedItemColor: colors.secondary,

@@ -46,7 +46,7 @@ class InventoryWidgetModel extends WidgetModel<InventoryWidget, IInventoryModel>
             isArtificialSpecs: index % 3 == 0,
             rare: ((index ~/ 3) % 5),
             imageUrl: 'https://koshka.top/uploads/posts/2021-12/1638422009_19-koshka-top-p-rzhachnie-kotov-20.png',
-            leftRatings: index,
+            leftRatings: index * 2,
             price: index * 10,
             spec1: 1,
             spec2: 6,

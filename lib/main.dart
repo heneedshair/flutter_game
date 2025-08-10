@@ -9,8 +9,10 @@ void main() {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
+  static final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(theme: AppThemeData.light, routerConfig: AppRouter().config());
+    return MaterialApp.router(theme: AppThemeData.light, routerConfig: _appRouter.config());
   }
 }

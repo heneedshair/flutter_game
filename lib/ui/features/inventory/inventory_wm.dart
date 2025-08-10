@@ -4,9 +4,12 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dart';
 import 'package:flutter_game/ui/features/inventory/inventory_model.dart';
 import 'package:flutter_game/ui/features/inventory/inventory_widget.dart';
+import 'package:flutter_game/ui/features/inventory/item_bottom_sheet/inventory_item_bottom_sheet.dart';
 
 abstract interface class IInventoryWidgetModel implements IWidgetModel {
   EntityValueListenable<List<InventoryItem>> get itemsListenable;
+
+  void onItemTap(int index);
 }
 
 InventoryWidgetModel defaultInventoryWidgetModelFactory(BuildContext context) {
@@ -42,10 +45,10 @@ class InventoryWidgetModel extends WidgetModel<InventoryWidget, IInventoryModel>
         } else {
           return Character(
             id: index,
-            name: index % 3 != 0 ? 'Крутой Котярааааааааа' : 'Дефолт',
+            name: index % 3 != 0 ? 'Крутой Котярааа' : 'Дефолт',
             isArtificialSpecs: index % 3 == 0,
             rare: ((index ~/ 3) % 5),
-            imageUrl: 'https://koshka.top/uploads/posts/2021-12/1638422009_19-koshka-top-p-rzhachnie-kotov-20.png',
+            imageUrl: 'assets/cat.png',
             leftRatings: index * 2,
             price: index * 10,
             spec1: 1,
@@ -68,4 +71,15 @@ class InventoryWidgetModel extends WidgetModel<InventoryWidget, IInventoryModel>
 
   @override
   EntityValueListenable<List<InventoryItem>> get itemsListenable => _itemsEntity;
+
+  @override
+  void onItemTap(int index) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (context) => InventoryItemBottomSheet(item: _itemsEntity.value.data![index]),
+    );
+  }
 }

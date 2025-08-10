@@ -30,7 +30,10 @@ class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
                     itemBuilder:
                         (_, index) =>
                             index < items.length
-                                ? InventoryItemWidget(item: items[index])
+                                ? InventoryItemWidget(
+                                  onItemTap: () => wm.onItemTap(index),
+                                  item: items[index],
+                                )
                                 : Container(
                                   padding: const EdgeInsets.all(6),
                                   decoration: BoxDecoration(

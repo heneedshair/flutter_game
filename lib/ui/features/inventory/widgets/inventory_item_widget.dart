@@ -3,18 +3,20 @@ import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dar
 import 'package:flutter_game/ui/theme/theme.dart';
 
 class InventoryItemWidget extends StatelessWidget {
-  const InventoryItemWidget({super.key, required this.item});
+  const InventoryItemWidget({super.key, required this.item, required this.onItemTap});
 
   final InventoryItem item;
+  final VoidCallback onItemTap;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
 
+    //TODO спустить МАП вниз по дереву
     return item.map(
       characher:
           (characher) => _CardWidget(
-            onItemTap: () {},
+            onItemTap: () => onItemTap(),
             name: characher.name,
             price: characher.price,
             imageUrl: characher.imageUrl,
@@ -43,7 +45,7 @@ class InventoryItemWidget extends StatelessWidget {
           ),
       chest:
           (chest) => _CardWidget(
-            onItemTap: () {},
+            onItemTap: () => onItemTap(),
             name: item.name,
             price: chest.price,
             imageUrl: item.imageUrl,
@@ -94,16 +96,18 @@ class _CardWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 100,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                  clipBehavior: Clip.hardEdge,
-                  //TODO заменить на network
-                  child: Image.asset(
-                    'assets/cat.png',
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Center(child: Icon(Icons.broken_image_outlined, color: textColor)),
-                    // loadingBuilder: (_, __, ___) => Center(child: Icon(Icons.photo, color: textColor)),
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    clipBehavior: Clip.hardEdge,
+                    //TODO заменить на network
+                    child: Image.asset(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Center(child: Icon(Icons.broken_image_outlined, color: textColor)),
+                      // loadingBuilder: (_, __, ___) => Center(child: Icon(Icons.photo, color: textColor)),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 2),

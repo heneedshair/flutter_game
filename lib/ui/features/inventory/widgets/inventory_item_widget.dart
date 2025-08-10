@@ -7,39 +7,35 @@ class InventoryItemWidget extends StatelessWidget {
 
   final InventoryItem item;
 
-  Color colorByRarity(BuildContext context) => switch (item.rare) {
-    0 => context.theme.colors.primaryContainer,
-    1 => Colors.grey,
-    2 => Colors.blueAccent,
-    3 => Colors.lightGreen,
-    4 => context.theme.colors.error,
-    int() => throw Exception('invalid rare value: ${item.rare}'),
-  };
-
   @override
   Widget build(BuildContext context) {
+    final colors = context.theme.colors;
+
     return item.map(
       characher:
           (characher) => _CardWidget(
-            onTap: () {},
+            onItemTap: () {},
             name: characher.name,
             price: characher.price,
             imageUrl: characher.imageUrl,
-            textColor: context.theme.colors.primary,
+            textColor: colors.primary,
             borderColor:
                 characher.isArtificialSpecs
-                    ? context.theme.colors.surfaceContainer
-                    : colorByRarity(context).withAlpha(200),
+                    ? colors.surfaceContainer
+                    : characher.rare.getColorByRarity(colors).withAlpha(200),
             //TODO переделать для больших чисел
             onImageChild: Stack(
               children: [
                 if (!characher.isArtificialSpecs)
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6.2),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: colorByRarity(context)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: characher.rare.getColorByRarity(colors),
+                    ),
                     child: Text(
                       '${characher.leftRatings}',
-                      style: context.theme.text.labelMedium?.copyWith(color: context.theme.colors.onPrimary, height: 1),
+                      style: context.theme.text.labelMedium?.copyWith(color: colors.onPrimary, height: 1),
                     ),
                   ),
               ],
@@ -47,12 +43,12 @@ class InventoryItemWidget extends StatelessWidget {
           ),
       chest:
           (chest) => _CardWidget(
-            onTap: () {},
+            onItemTap: () {},
             name: item.name,
             price: chest.price,
             imageUrl: item.imageUrl,
-            textColor: colorByRarity(context),
-            borderColor: colorByRarity(context).withAlpha(200),
+            textColor: chest.rare.getColorByRarity(colors),
+            borderColor: chest.rare.getColorByRarity(colors).withAlpha(200),
           ),
     );
   }
@@ -64,7 +60,7 @@ class _CardWidget extends StatelessWidget {
     required this.textColor,
     required this.borderColor,
     required this.imageUrl,
-    required this.onTap,
+    required this.onItemTap,
     required this.price,
     this.onImageChild,
   });
@@ -74,21 +70,22 @@ class _CardWidget extends StatelessWidget {
   final String imageUrl;
   final Color textColor;
   final Color borderColor;
-  final VoidCallback onTap;
+  final VoidCallback onItemTap;
   final Widget? onImageChild;
 
   @override
   Widget build(BuildContext context) {
-    final labelStyle = context.theme.text.titleSmall;
+    final colors = context.theme.colors;
+    final textStyles = context.theme.text;
 
     return GestureDetector(
-      onTap: () => onTap(),
+      onTap: () => onItemTap(),
       child: Container(
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           border: Border.all(width: 2.3, color: borderColor),
           borderRadius: BorderRadius.circular(18),
-          color: context.theme.colors.surfaceContainerHighest,
+          color: colors.surfaceContainerHighest,
         ),
         child: Stack(
           alignment: Alignment.topRight,
@@ -120,7 +117,10 @@ class _CardWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 3.3),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('\$', style: labelStyle), Text('$price', maxLines: 1, style: labelStyle)],
+                    children: [
+                      Text('\$', style: textStyles.titleSmall),
+                      Text('$price', maxLines: 1, style: textStyles.titleSmall),
+                    ],
                   ),
                 ),
               ],

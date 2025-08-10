@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'inventory_item.freezed.dart';
@@ -39,6 +42,19 @@ class Character extends InventoryItem with _$Character {
   @override
   T map<T>({required T Function(Character characher) characher, required T Function(Chest chest) chest}) =>
       characher(this);
+}
+
+extension ColorExtension on int {
+  Color getColorByRarity(ColorScheme colors) {
+    return switch (this) {
+      0 => colors.primaryContainer,
+      1 => Colors.grey,
+      2 => Colors.blueAccent,
+      3 => Colors.lightGreen,
+      4 => colors.error,
+      int() => throw Exception('invalid rare value: $this'),
+    };
+  }
 }
 
 @freezed

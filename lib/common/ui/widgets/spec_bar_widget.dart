@@ -23,28 +23,31 @@ class SpecBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: segmentSpacing,
-      children: [
-        Icon(icon, color: filledColor, size: 20),
-        ...List.generate(segmentsCount, (index) {
-          final isFilled = index < value;
-          return Expanded(
-            child: Container(
-              height: segmentHeight,
-              decoration: ShapeDecoration(
-                color: isFilled ? filledColor : emptyColor ?? context.theme.colors.surfaceContainer,
-                shape: const StadiumBorder(),
+    return Tooltip(
+      message: 'привееееееееееет',
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        spacing: segmentSpacing,
+        children: [
+          Icon(icon, color: filledColor, size: 20),
+          ...List.generate(segmentsCount, (index) {
+            final isFilled = index < value;
+            return Expanded(
+              child: Container(
+                height: segmentHeight,
+                decoration: ShapeDecoration(
+                  color: isFilled ? filledColor : emptyColor ?? context.theme.colors.surfaceContainer,
+                  shape: const StadiumBorder(),
+                ),
               ),
-            ),
-          );
-        }),
-        SizedBox.square(
-          dimension: 20,
-          child: Center(child: Text('$value', style: context.theme.text.titleMedium?.copyWith(height: 1))),
-        ),
-      ],
+            );
+          }),
+          SizedBox(
+            width: 18,
+            child: Center(child: Text('$value', style: context.theme.text.titleMedium?.copyWith(height: 1))),
+          ),
+        ],
+      ),
     );
   }
 }

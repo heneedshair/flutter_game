@@ -22,7 +22,7 @@ class CharacterSpecsWidget extends StatelessWidget {
         SpecBarWidget(value: character.spec2, filledColor: Colors.blue, icon: Icons.lightbulb_rounded),
         SpecBarWidget(value: character.spec3, filledColor: Colors.orange, icon: Icons.warning_rounded),
         SpecBarWidget(value: character.spec4, filledColor: Colors.green, icon: Icons.mood_rounded),
-        SpecBarWidget(value: character.spec5, filledColor: Colors.purple, icon: Icons.campaign_rounded),
+        SpecBarWidget(value: character.spec5, filledColor: Colors.purple, icon: Icons.auto_awesome_rounded),
         const SizedBox(height: 10),
       ],
     );

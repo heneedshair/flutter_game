@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dart';
 import 'package:flutter_game/ui/features/inventory/item_bottom_sheet/widgets/character_specs_widget.dart';
@@ -19,8 +20,14 @@ class InventoryItemBottomSheet extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
-        actionsPadding: const EdgeInsets.only(right: 8),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.close_rounded))],
+        actionsPadding: const EdgeInsets.only(right: 12, top: 4),
+        actions: [
+          CircleAvatar(
+            backgroundColor: colors.surface.withAlpha(100),
+            //TODO убрать функцию в wm
+            child: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.close_rounded)),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -102,9 +109,29 @@ class _CardWidget extends StatelessWidget {
           ),
 
           /// [Name]
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: padding / 4, horizontal: padding / 2),
-            child: Text(name, style: textStyles.titleLarge?.copyWith(fontWeight: FontWeight.w500)),
+          Material(
+            child: InkWell(
+              borderRadius: BorderRadius.circular(30),
+              splashColor: colors.surfaceContainer,
+              onTap: isEditableName ? () {} : null,
+              child: Ink(
+                padding: const EdgeInsets.symmetric(vertical: padding / 4, horizontal: padding / 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: textStyles.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    if (isEditableName) Icon(Icons.edit_outlined, color: colors.primary),
+                  ],
+                ),
+              ),
+            ),
           ),
 
           /// [Item Info]

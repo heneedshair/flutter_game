@@ -115,7 +115,10 @@ class _CardWidget extends StatelessWidget {
                   name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: context.theme.text.titleSmall?.copyWith(color: textColor),
+                  style: context.theme.text.titleSmall?.copyWith(
+                    color: textColor,
+                    fontWeight: FontWeight.lerp(FontWeight.w700, FontWeight.w800, 0.25),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 3.3),

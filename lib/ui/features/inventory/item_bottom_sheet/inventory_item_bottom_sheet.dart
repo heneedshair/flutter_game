@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dart';
+import 'package:flutter_game/ui/features/inventory/item_bottom_sheet/widgets/character_specs_widget.dart';
 import 'package:flutter_game/ui/theme/theme.dart';
 
 class InventoryItemBottomSheet extends StatelessWidget {
@@ -28,6 +29,7 @@ class InventoryItemBottomSheet extends StatelessWidget {
           child: Center(
             child: _CardWidget(
               name: item.name,
+              isEditableName: item is Character,
               price: item.price,
               imageUrl: item.imageUrl,
               headerColor: item.map(
@@ -40,6 +42,10 @@ class InventoryItemBottomSheet extends StatelessWidget {
                         characher.isArtificialSpecs ? colors.surfaceContainer : characher.rare.getColorByRarity(colors),
                 chest: (chest) => chest.rare.getColorByRarity(colors),
               ),
+              itemInfoWidget: item.map(
+                characher: (characher) => CharacterSpecsWidget(character: characher),
+                chest: (_) => null,
+              ),
             ),
           ),
         ),
@@ -51,40 +57,70 @@ class InventoryItemBottomSheet extends StatelessWidget {
 class _CardWidget extends StatelessWidget {
   const _CardWidget({
     required this.name,
+    required this.isEditableName,
     required this.price,
     required this.imageUrl,
     required this.headerColor,
     required this.borderColor,
-    this.onImageChild,
+    this.onImageWidget,
+    this.itemInfoWidget,
   });
 
   final String name;
+  final bool isEditableName;
   final int price;
   final String imageUrl;
   final Color headerColor;
   final Color borderColor;
-  final Widget? onImageChild;
+  final Widget? onImageWidget;
+  final Widget? itemInfoWidget;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
     final textStyles = context.theme.text;
 
+    const padding = 20.0;
+    const borderWidth = 4.0;
+    const childBorderradius = 24.0;
+
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        border: Border.all(color: borderColor, width: 4),
-        borderRadius: BorderRadius.circular(44),
+        border: Border.all(color: borderColor, width: borderWidth),
+        borderRadius: BorderRadius.circular(48),
         color: colors.surface,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// [Image]
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(childBorderradius),
             child: AspectRatio(aspectRatio: 1, child: Image.asset('assets/cat.png', fit: BoxFit.cover)),
           ),
-          Text(name, style: textStyles.headlineMedium?.copyWith(color: headerColor)),
+
+          /// [Name]
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: padding / 4, horizontal: padding / 2),
+            child: Text(name, style: textStyles.titleLarge?.copyWith(fontWeight: FontWeight.w500)),
+          ),
+
+          /// [Item Info]
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: (padding - borderWidth) / 2,
+              vertical: (padding - borderWidth) / 3,
+            ),
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(childBorderradius),
+              color: colors.surfaceContainerHighest,
+              border: Border.all(color: colors.surfaceContainer, width: borderWidth),
+            ),
+            child: itemInfoWidget,
+          ),
         ],
       ),
     );

@@ -15,11 +15,11 @@ _$CharacterImpl _$$CharacterImplFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String,
       isArtificialSpecs: json['isArtificialSpecs'] as bool,
       leftRatings: (json['leftRatings'] as num).toInt(),
-      spec1: (json['spec1'] as num).toDouble(),
-      spec2: (json['spec2'] as num).toDouble(),
-      spec3: (json['spec3'] as num).toDouble(),
-      spec4: (json['spec4'] as num).toDouble(),
-      spec5: (json['spec5'] as num).toDouble(),
+      spec1: (json['spec1'] as num).toInt(),
+      spec2: (json['spec2'] as num).toInt(),
+      spec3: (json['spec3'] as num).toInt(),
+      spec4: (json['spec4'] as num).toInt(),
+      spec5: (json['spec5'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$CharacterImplToJson(_$CharacterImpl instance) =>

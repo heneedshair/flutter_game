@@ -28,11 +28,11 @@ mixin _$Character {
   String get imageUrl => throw _privateConstructorUsedError;
   bool get isArtificialSpecs => throw _privateConstructorUsedError;
   int get leftRatings => throw _privateConstructorUsedError;
-  double get spec1 => throw _privateConstructorUsedError;
-  double get spec2 => throw _privateConstructorUsedError;
-  double get spec3 => throw _privateConstructorUsedError;
-  double get spec4 => throw _privateConstructorUsedError;
-  double get spec5 => throw _privateConstructorUsedError;
+  int get spec1 => throw _privateConstructorUsedError;
+  int get spec2 => throw _privateConstructorUsedError;
+  int get spec3 => throw _privateConstructorUsedError;
+  int get spec4 => throw _privateConstructorUsedError;
+  int get spec5 => throw _privateConstructorUsedError;
 
   /// Serializes this Character to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,11 +57,11 @@ abstract class $CharacterCopyWith<$Res> {
     String imageUrl,
     bool isArtificialSpecs,
     int leftRatings,
-    double spec1,
-    double spec2,
-    double spec3,
-    double spec4,
-    double spec5,
+    int spec1,
+    int spec2,
+    int spec3,
+    int spec4,
+    int spec5,
   });
 }
 
@@ -134,27 +134,27 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
                 null == spec1
                     ? _value.spec1
                     : spec1 // ignore: cast_nullable_to_non_nullable
-                        as double,
+                        as int,
             spec2:
                 null == spec2
                     ? _value.spec2
                     : spec2 // ignore: cast_nullable_to_non_nullable
-                        as double,
+                        as int,
             spec3:
                 null == spec3
                     ? _value.spec3
                     : spec3 // ignore: cast_nullable_to_non_nullable
-                        as double,
+                        as int,
             spec4:
                 null == spec4
                     ? _value.spec4
                     : spec4 // ignore: cast_nullable_to_non_nullable
-                        as double,
+                        as int,
             spec5:
                 null == spec5
                     ? _value.spec5
                     : spec5 // ignore: cast_nullable_to_non_nullable
-                        as double,
+                        as int,
           )
           as $Val,
     );
@@ -178,11 +178,11 @@ abstract class _$$CharacterImplCopyWith<$Res>
     String imageUrl,
     bool isArtificialSpecs,
     int leftRatings,
-    double spec1,
-    double spec2,
-    double spec3,
-    double spec4,
-    double spec5,
+    int spec1,
+    int spec2,
+    int spec3,
+    int spec4,
+    int spec5,
   });
 }
 
@@ -254,27 +254,27 @@ class __$$CharacterImplCopyWithImpl<$Res>
             null == spec1
                 ? _value.spec1
                 : spec1 // ignore: cast_nullable_to_non_nullable
-                    as double,
+                    as int,
         spec2:
             null == spec2
                 ? _value.spec2
                 : spec2 // ignore: cast_nullable_to_non_nullable
-                    as double,
+                    as int,
         spec3:
             null == spec3
                 ? _value.spec3
                 : spec3 // ignore: cast_nullable_to_non_nullable
-                    as double,
+                    as int,
         spec4:
             null == spec4
                 ? _value.spec4
                 : spec4 // ignore: cast_nullable_to_non_nullable
-                    as double,
+                    as int,
         spec5:
             null == spec5
                 ? _value.spec5
                 : spec5 // ignore: cast_nullable_to_non_nullable
-                    as double,
+                    as int,
       ),
     );
   }
@@ -316,15 +316,15 @@ class _$CharacterImpl extends _Character {
   @override
   final int leftRatings;
   @override
-  final double spec1;
+  final int spec1;
   @override
-  final double spec2;
+  final int spec2;
   @override
-  final double spec3;
+  final int spec3;
   @override
-  final double spec4;
+  final int spec4;
   @override
-  final double spec5;
+  final int spec5;
 
   @override
   String toString() {
@@ -394,11 +394,11 @@ abstract class _Character extends Character {
     required final String imageUrl,
     required final bool isArtificialSpecs,
     required final int leftRatings,
-    required final double spec1,
-    required final double spec2,
-    required final double spec3,
-    required final double spec4,
-    required final double spec5,
+    required final int spec1,
+    required final int spec2,
+    required final int spec3,
+    required final int spec4,
+    required final int spec5,
   }) = _$CharacterImpl;
   const _Character._() : super._();
 
@@ -420,15 +420,15 @@ abstract class _Character extends Character {
   @override
   int get leftRatings;
   @override
-  double get spec1;
+  int get spec1;
   @override
-  double get spec2;
+  int get spec2;
   @override
-  double get spec3;
+  int get spec3;
   @override
-  double get spec4;
+  int get spec4;
   @override
-  double get spec5;
+  int get spec5;
 
   /// Create a copy of Character
   /// with the given fields replaced by the non-null parameter values.

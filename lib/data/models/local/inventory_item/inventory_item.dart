@@ -30,11 +30,11 @@ class Character extends InventoryItem with _$Character {
     required String imageUrl,
     required bool isArtificialSpecs,
     required int leftRatings,
-    required double spec1,
-    required double spec2,
-    required double spec3,
-    required double spec4,
-    required double spec5,
+    required int spec1,
+    required int spec2,
+    required int spec3,
+    required int spec4,
+    required int spec5,
   }) = _Character;
 
   factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);

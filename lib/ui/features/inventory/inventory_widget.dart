@@ -6,7 +6,9 @@ import 'package:flutter_game/ui/features/inventory/widgets/inventory_item_widget
 import 'package:flutter_game/ui/theme/theme.dart';
 
 class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
-  const InventoryWidget({super.key}) : super(defaultInventoryWidgetModelFactory);
+  const InventoryWidget({super.key, required this.changeAppBarColor}) : super(defaultInventoryWidgetModelFactory);
+
+  final Function(Color newColor) changeAppBarColor;
 
   @override
   Widget build(IInventoryWidgetModel wm) {
@@ -31,7 +33,7 @@ class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
                         (_, index) =>
                             index < items.length
                                 ? InventoryItemWidget(
-                                  onItemTap: () => wm.onItemTap(index),
+                                  onItemTap: (newColor) => wm.onItemTap(index, newColor),
                                   item: items[index],
                                 )
                                 : Container(

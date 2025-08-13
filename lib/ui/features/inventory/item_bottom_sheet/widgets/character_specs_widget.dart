@@ -10,7 +10,6 @@ class CharacterSpecsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.theme.colors;
     final textStyles = context.theme.text;
 
     return Column(

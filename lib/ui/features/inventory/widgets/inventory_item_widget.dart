@@ -6,7 +6,7 @@ class InventoryItemWidget extends StatelessWidget {
   const InventoryItemWidget({super.key, required this.item, required this.onItemTap});
 
   final InventoryItem item;
-  final VoidCallback onItemTap;
+  final Function(Color newColor) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class InventoryItemWidget extends StatelessWidget {
     return item.map(
       characher:
           (characher) => _CardWidget(
-            onItemTap: () => onItemTap(),
+            onItemTap: onItemTap,
             name: characher.name,
             price: characher.price,
             imageUrl: characher.imageUrl,
@@ -45,7 +45,7 @@ class InventoryItemWidget extends StatelessWidget {
           ),
       chest:
           (chest) => _CardWidget(
-            onItemTap: () => onItemTap(),
+            onItemTap: onItemTap,
             name: item.name,
             price: chest.price,
             imageUrl: item.imageUrl,
@@ -72,7 +72,7 @@ class _CardWidget extends StatelessWidget {
   final String imageUrl;
   final Color textColor;
   final Color borderColor;
-  final VoidCallback onItemTap;
+  final Function(Color newColor) onItemTap;
   final Widget? onImageChild;
 
   @override
@@ -81,7 +81,7 @@ class _CardWidget extends StatelessWidget {
     final textStyles = context.theme.text;
 
     return GestureDetector(
-      onTap: () => onItemTap(),
+      onTap: () => onItemTap(borderColor),
       child: Container(
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(

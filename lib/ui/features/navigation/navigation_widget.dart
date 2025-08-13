@@ -15,64 +15,80 @@ class NavigationWidget extends ElementaryWidget<NavigationWidgetModel> {
   Widget build(INavigationWidgetModel wm) {
     return PopScope(
       canPop: false,
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 62,
-              backgroundColor: context.theme.colors.secondary,
-              foregroundColor: context.theme.colors.onSecondary,
-              title: UserTabWidget(onUserTap: () => wm.onUserTap()),
-              actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_rounded)),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.settings_rounded)),
-                ),
-              ],
-            ),
-            body: EntityStateNotifierBuilder<int?>(
-              listenableEntityState: wm.currentTabListenable,
-              builder:
-                  (_, index) => AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    reverseDuration: const Duration(milliseconds: 200),
-                    switchInCurve: Curves.easeIn,
-                    switchOutCurve: Curves.easeOut,
-                    transitionBuilder: (child, animation) {
-                      final offsetAnimation = Tween<Offset>(
-                        begin: const Offset(1.0, 0),
-                        end: Offset.zero,
-                      ).animate(animation);
-                      return SlideTransition(position: offsetAnimation, child: child);
-                    },
-                    child: switch (index) {
-                      0 => const Center(key: ValueKey(0)),
-                      1 => const InventoryWidget(key: ValueKey(1)),
-                      null => const SizedBox.shrink(key: ValueKey('empty')),
-                      int() => const SizedBox.shrink(key: ValueKey('empty')),
-                    },
+      child: ValueListenableBuilder(
+        valueListenable: wm.appBarColorNotifier,
+        builder:
+            (context, appBarColor, _) => Scaffold(
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(62),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 350),
+                  curve: Curves.easeInOut,
+                  color: appBarColor,
+                  child: AppBar(
+                    elevation: 0,
+                    automaticallyImplyLeading: false,
+                    toolbarHeight: 62,
+                    backgroundColor: Colors.transparent, // Прозрачный, чтобы был цвет AnimatedContainer
+                    foregroundColor: context.theme.colors.onSecondary,
+                    title: UserTabWidget(onUserTap: () => wm.onUserTap()),
+                    actions: [
+                      IconButton(
+                        onPressed: () => wm.onNotificationsTap(),
+                        icon: const Icon(Icons.notifications_rounded),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: IconButton(
+                          onPressed: () => wm.onSettingsTap(),
+                          icon: const Icon(Icons.settings_rounded),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+              ),
+              body: EntityStateNotifierBuilder<int?>(
+                listenableEntityState: wm.currentTabListenable,
+                builder:
+                    (_, index) => AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      reverseDuration: const Duration(milliseconds: 200),
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeOut,
+                      transitionBuilder: (child, animation) {
+                        final offsetAnimation = Tween<Offset>(
+                          begin: const Offset(1.0, 0),
+                          end: Offset.zero,
+                        ).animate(animation);
+                        return SlideTransition(position: offsetAnimation, child: child);
+                      },
+                      child: switch (index) {
+                        0 => const Center(key: ValueKey(0)),
+                        1 => InventoryWidget(key: const ValueKey(1), changeAppBarColor: wm.changeAppBarColor),
+                        null => const SizedBox.shrink(key: ValueKey('empty')),
+                        int() => const SizedBox.shrink(key: ValueKey('empty')),
+                      },
+                    ),
+              ),
+              bottomNavigationBar: EntityStateNotifierBuilder(
+                listenableEntityState: wm.currentTabListenable,
+                builder:
+                    (context, index) =>
+                        index == null
+                            ? const SizedBox.shrink()
+                            : BottomNavigationBar(
+                              currentIndex: index,
+                              selectedItemColor: appBarColor,
+                              type: BottomNavigationBarType.fixed,
+                              onTap: (index) => wm.onNavigationTap(index),
+                              items: const [
+                                BottomNavigationBarItem(label: 'Лента', icon: Icon(Icons.star_rounded)),
+                                BottomNavigationBarItem(label: 'Инвентарь', icon: Icon(Icons.inventory_2_rounded)),
+                              ],
+                            ),
+              ),
             ),
-            bottomNavigationBar: EntityStateNotifierBuilder(
-              listenableEntityState: wm.currentTabListenable,
-              builder:
-                  (context, index) =>
-                      index == null
-                          ? const SizedBox.shrink()
-                          : BottomNavigationBar(
-                            currentIndex: index,
-                            type: BottomNavigationBarType.fixed,
-                            onTap: (index) => wm.onNavigationTap(index),
-                            items: const [
-                              BottomNavigationBarItem(label: 'Лента', icon: Icon(Icons.star_rounded)),
-                              BottomNavigationBarItem(label: 'Инвентарь', icon: Icon(Icons.inventory_2_rounded)),
-                            ],
-                          ),
-            ),
-          );
-        },
       ),
     );
   }

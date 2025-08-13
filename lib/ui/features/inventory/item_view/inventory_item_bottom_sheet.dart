@@ -2,13 +2,14 @@ import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dart';
-import 'package:flutter_game/ui/features/inventory/item_bottom_sheet/widgets/character_specs_widget.dart';
+import 'package:flutter_game/ui/features/inventory/item_view/widgets/character_specs_widget.dart';
 import 'package:flutter_game/ui/theme/theme.dart';
 
-class InventoryItemBottomSheet extends StatelessWidget {
-  const InventoryItemBottomSheet({super.key, required this.item});
+class InventoryItemView extends StatelessWidget {
+  const InventoryItemView({super.key, required this.items, required this.selectedItemIndex});
 
-  final InventoryItem item;
+  final List<InventoryItem> items;
+  final int selectedItemIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +30,43 @@ class InventoryItemBottomSheet extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 28),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: Center(
-            child: _CardWidget(
-              name: item.name,
-              isEditableName: item is Character,
-              price: item.price,
-              imageUrl: item.imageUrl,
-              headerColor: item.map(
-                characher: (_) => colors.onSurface,
-                chest: (chest) => chest.rare.getColorByRarity(colors),
+      body: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        child: PageView.builder(
+          itemCount: items.length,
+          controller: PageController(initialPage: selectedItemIndex),
+          itemBuilder: (context, index) {
+            final item = items[index];
+
+            /// [ItevWidgetFullWidget]
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              child: Center(
+                child: _CardWidget(
+                  name: item.name,
+                  isEditableName: item is Character,
+                  price: item.price,
+                  imageUrl: item.imageUrl,
+                  headerColor: item.map(
+                    characher: (_) => colors.onSurface,
+                    chest: (chest) => chest.rare.getColorByRarity(colors),
+                  ),
+                  borderColor: item.map(
+                    characher:
+                        (characher) =>
+                            characher.isArtificialSpecs
+                                ? colors.surfaceContainer
+                                : characher.rare.getColorByRarity(colors),
+                    chest: (chest) => chest.rare.getColorByRarity(colors),
+                  ),
+                  itemInfoWidget: item.map(
+                    characher: (characher) => CharacterSpecsWidget(character: characher),
+                    chest: (_) => null,
+                  ),
+                ),
               ),
-              borderColor: item.map(
-                characher:
-                    (characher) =>
-                        characher.isArtificialSpecs ? colors.surfaceContainer : characher.rare.getColorByRarity(colors),
-                chest: (chest) => chest.rare.getColorByRarity(colors),
-              ),
-              itemInfoWidget: item.map(
-                characher: (characher) => CharacterSpecsWidget(character: characher),
-                chest: (_) => null,
-              ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

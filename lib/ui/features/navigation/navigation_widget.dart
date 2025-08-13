@@ -37,14 +37,12 @@ class NavigationWidget extends ElementaryWidget<NavigationWidgetModel> {
                         onPressed: () => wm.onNotificationsTap(),
                         icon: const Icon(Icons.notifications_rounded),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: IconButton(
-                          onPressed: () => wm.onSettingsTap(),
-                          icon: const Icon(Icons.settings_rounded),
-                        ),
+                      IconButton(
+                        onPressed: () => wm.onSettingsTap(),
+                        icon: const Icon(Icons.settings_rounded),
                       ),
                     ],
+                    actionsPadding: const EdgeInsets.only(right: 8),
                   ),
                 ),
               ),

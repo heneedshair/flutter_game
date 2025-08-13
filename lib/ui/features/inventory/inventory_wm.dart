@@ -4,7 +4,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dart';
 import 'package:flutter_game/ui/features/inventory/inventory_model.dart';
 import 'package:flutter_game/ui/features/inventory/inventory_widget.dart';
-import 'package:flutter_game/ui/features/inventory/item_bottom_sheet/inventory_item_bottom_sheet.dart';
+import 'package:flutter_game/ui/features/inventory/item_view/inventory_item_bottom_sheet.dart';
 import 'package:flutter_game/ui/theme/theme.dart';
 
 abstract interface class IInventoryWidgetModel implements IWidgetModel {
@@ -76,14 +76,14 @@ class InventoryWidgetModel extends WidgetModel<InventoryWidget, IInventoryModel>
   @override
   Future<void> onItemTap(int index, Color newColor) async {
     final oldColor = context.theme.colors.secondary;
-    
+
     widget.changeAppBarColor(newColor);
     await showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       useSafeArea: true,
-      builder: (context) => InventoryItemBottomSheet(item: _itemsEntity.value.data![index]),
+      builder: (context) => InventoryItemView(items: _itemsEntity.value.data!, selectedItemIndex: index),
     );
     widget.changeAppBarColor(oldColor);
   }

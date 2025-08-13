@@ -24,6 +24,13 @@ class NavigationWidget extends ElementaryWidget<NavigationWidgetModel> {
               backgroundColor: context.theme.colors.secondary,
               foregroundColor: context.theme.colors.onSecondary,
               title: UserTabWidget(onUserTap: () => wm.onUserTap()),
+              actions: [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_rounded)),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: IconButton(onPressed: () {}, icon: const Icon(Icons.settings_rounded)),
+                ),
+              ],
             ),
             body: EntityStateNotifierBuilder<int?>(
               listenableEntityState: wm.currentTabListenable,

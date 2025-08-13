@@ -53,8 +53,6 @@ class UserTabWidget extends StatelessWidget {
             ),
           ),
         ),
-        const Spacer(),
-        SizedBox(child: IconButton(onPressed: () {}, icon: const Icon(Icons.settings_rounded))),
       ],
     );
   }

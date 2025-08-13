@@ -15,7 +15,7 @@ abstract class InventoryItem {
   int get price;
   String get imageUrl;
 
-  T map<T>({required T Function(Character characher) characher, required T Function(Chest chest) chest});
+  T map<T>({required T Function(Character character) character, required T Function(Chest chest) chest});
 }
 
 @freezed
@@ -40,8 +40,8 @@ class Character extends InventoryItem with _$Character {
   factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);
 
   @override
-  T map<T>({required T Function(Character characher) characher, required T Function(Chest chest) chest}) =>
-      characher(this);
+  T map<T>({required T Function(Character character) character, required T Function(Chest chest) chest}) =>
+      character(this);
 }
 
 extension ColorExtension on int {
@@ -74,5 +74,5 @@ class Chest extends InventoryItem with _$Chest {
   factory Chest.fromJson(Map<String, dynamic> json) => _$ChestFromJson(json);
 
   @override
-  T map<T>({required T Function(Character characher) characher, required T Function(Chest chest) chest}) => chest(this);
+  T map<T>({required T Function(Character character) character, required T Function(Chest chest) chest}) => chest(this);
 }

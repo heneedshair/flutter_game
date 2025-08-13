@@ -19,17 +19,17 @@ class InventoryItemPage extends StatelessWidget {
         price: item.price,
         imageUrl: item.imageUrl,
         headerColor: item.map(
-          characher: (_) => colors.onSurface,
+          character: (_) => colors.onSurface,
           chest: (chest) => chest.rare.getColorByRarity(colors),
         ),
         borderColor: item.map(
-          characher:
+          character:
               (characher) =>
                   characher.isArtificialSpecs ? colors.surfaceContainer : characher.rare.getColorByRarity(colors),
           chest: (chest) => chest.rare.getColorByRarity(colors),
         ),
         itemInfoWidget: item.map(
-          characher: (characher) => CharacterSpecsWidget(character: characher),
+          character: (characher) => CharacterSpecsWidget(character: characher),
           chest: (_) => null,
         ),
       ),
@@ -112,10 +112,6 @@ class _CardWidget extends StatelessWidget {
 
           /// [Item Info]
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: (padding - borderWidth) / 2,
-              vertical: (padding - borderWidth) / 3,
-            ),
             width: double.maxFinite,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(childBorderradius),

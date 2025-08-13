@@ -49,7 +49,7 @@ class InventoryItemViewWidget extends ElementaryWidget<InventoryItemViewWidgetMo
             final item = items[index];
             onPageChanged(
               item.map(
-                characher:
+                character:
                     (characher) =>
                         characher.isArtificialSpecs ? colors.surfaceContainer : item.rare.getColorByRarity(colors),
                 chest: (chest) => item.rare.getColorByRarity(colors),

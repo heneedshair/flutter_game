@@ -25,26 +25,38 @@ class SpecBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Tooltip(
       message: 'привееееееееееет',
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        spacing: segmentSpacing,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: filledColor, size: 20),
-          ...List.generate(segmentsCount, (index) {
-            final isFilled = index < value;
-            return Expanded(
-              child: Container(
-                height: segmentHeight,
-                decoration: ShapeDecoration(
-                  color: isFilled ? filledColor : emptyColor ?? context.theme.colors.surfaceContainer,
-                  shape: const StadiumBorder(),
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Сила', style: context.theme.text.titleSmall?.copyWith(color: filledColor)),
+              Icon(Icons.info_rounded, color: filledColor, size: 16),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: segmentSpacing,
+            children: [
+              Icon(icon, color: filledColor, size: 20),
+              ...List.generate(segmentsCount, (index) {
+                final isFilled = index < value;
+                return Expanded(
+                  child: Container(
+                    height: segmentHeight,
+                    decoration: ShapeDecoration(
+                      color: isFilled ? filledColor : emptyColor ?? context.theme.colors.surfaceContainer,
+                      shape: const StadiumBorder(),
+                    ),
+                  ),
+                );
+              }),
+              SizedBox(
+                width: 18,
+                child: Center(child: Text('$value', style: context.theme.text.titleMedium?.copyWith(height: 1))),
               ),
-            );
-          }),
-          SizedBox(
-            width: 18,
-            child: Center(child: Text('$value', style: context.theme.text.titleMedium?.copyWith(height: 1))),
+            ],
           ),
         ],
       ),

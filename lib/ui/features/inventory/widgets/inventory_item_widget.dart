@@ -12,46 +12,40 @@ class InventoryItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
 
-    //TODO спустить МАП вниз по дереву
-    return item.map(
-      characher:
-          (characher) => _CardWidget(
-            onItemTap: onItemTap,
-            name: characher.name,
-            price: characher.price,
-            imageUrl: characher.imageUrl,
-            textColor: colors.primary,
-            borderColor:
-                characher.isArtificialSpecs
+    return _CardWidget(
+      name: item.name,
+      textColor: item.map(character: (_) => colors.primary, chest: (_) => item.rare.getColorByRarity(colors)),
+      borderColor: item.map(
+        character:
+            (character) =>
+                character.isArtificialSpecs
                     ? colors.surfaceContainer
-                    : characher.rare.getColorByRarity(colors).withAlpha(200),
-            //TODO переделать для больших чисел
-            onImageChild: Stack(
+                    : character.rare.getColorByRarity(colors).withAlpha(200),
+        chest: (_) => item.rare.getColorByRarity(colors).withAlpha(200),
+      ),
+      imageUrl: item.imageUrl,
+      onItemTap: onItemTap,
+      price: item.price,
+      onImageWidget: item.map(
+        character:
+            (character) => Stack(
               children: [
-                if (!characher.isArtificialSpecs)
+                if (!character.isArtificialSpecs)
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6.2),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: characher.rare.getColorByRarity(colors),
+                      color: character.rare.getColorByRarity(colors),
                     ),
                     child: Text(
-                      '${characher.leftRatings}',
+                      '${character.leftRatings}',
                       style: context.theme.text.labelMedium?.copyWith(color: colors.onPrimary, height: 1),
                     ),
                   ),
               ],
             ),
-          ),
-      chest:
-          (chest) => _CardWidget(
-            onItemTap: onItemTap,
-            name: item.name,
-            price: chest.price,
-            imageUrl: item.imageUrl,
-            textColor: chest.rare.getColorByRarity(colors),
-            borderColor: chest.rare.getColorByRarity(colors).withAlpha(200),
-          ),
+        chest: (_) => null,
+      ),
     );
   }
 }
@@ -64,7 +58,7 @@ class _CardWidget extends StatelessWidget {
     required this.imageUrl,
     required this.onItemTap,
     required this.price,
-    this.onImageChild,
+    this.onImageWidget,
   });
 
   final String name;
@@ -73,7 +67,7 @@ class _CardWidget extends StatelessWidget {
   final Color textColor;
   final Color borderColor;
   final Function(Color newColor) onItemTap;
-  final Widget? onImageChild;
+  final Widget? onImageWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +126,7 @@ class _CardWidget extends StatelessWidget {
                 ),
               ],
             ),
-            if (onImageChild != null) onImageChild!,
+            if (onImageWidget != null) onImageWidget!,
           ],
         ),
       ),

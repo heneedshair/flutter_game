@@ -47,6 +47,7 @@ class UserTabWidget extends StatelessWidget {
                       Text('lvl: 14,  \$15', style: lablelStyle),
                     ],
                   ),
+                  const SizedBox(width: 10),
                 ],
               ),
             ),

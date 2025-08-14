@@ -63,8 +63,8 @@ class _CardWidget extends StatelessWidget {
     final colors = context.theme.colors;
     final textStyles = context.theme.text;
 
-    const padding = 20.0;
-    const borderWidth = 4.0;
+    const padding = 12.0;
+    const borderWidth = 8.0;
     const childBorderradius = 24.0;
 
     return Container(

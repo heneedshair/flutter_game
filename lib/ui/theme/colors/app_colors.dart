@@ -4,6 +4,7 @@ class AppColors {
   const AppColors._({
     required this.primary,
     required this.primaryContainer,
+    required this.primaryFixedDim,
     required this.onPrimary,
     required this.secondary,
     required this.secondaryContainer,
@@ -21,6 +22,7 @@ class AppColors {
   factory AppColors.light() => const AppColors._(
     primary: Color.fromARGB(255, 179, 134, 89),
     primaryContainer: Color.fromARGB(255, 212, 163, 115),
+    primaryFixedDim: Color.fromARGB(255, 125, 81, 39),
     onPrimary: Color.fromARGB(255, 250, 237, 205),
     secondary: Color.fromARGB(255, 172, 189, 116),
     secondaryContainer: Color.fromARGB(255, 204, 213, 174),
@@ -39,6 +41,7 @@ class AppColors {
 
   final Color primary;
   final Color primaryContainer;
+  final Color primaryFixedDim;
   final Color onPrimary;
   final Color secondary;
   final Color secondaryContainer;

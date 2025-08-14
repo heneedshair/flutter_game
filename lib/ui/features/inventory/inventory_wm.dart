@@ -46,7 +46,7 @@ class InventoryWidgetModel extends WidgetModel<InventoryWidget, IInventoryModel>
         } else {
           return Character(
             id: index,
-            name: index % 3 != 0 ? 'Крутой Котярааа' : 'Дефолт',
+            name: index % 3 != 0 ? 'Крутой Котяра' : 'Дефолт',
             isArtificialSpecs: index % 3 == 0,
             rare: ((index ~/ 3) % 5),
             imageUrl: 'assets/cat.png',

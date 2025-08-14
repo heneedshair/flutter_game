@@ -10,6 +10,7 @@ abstract final class AppThemeData {
       brightness: brightness,
       primary: colors.primary,
       primaryContainer: colors.primaryContainer,
+      primaryFixedDim: colors.primaryFixedDim,
       onPrimary: colors.surface,
       secondary: colors.secondary,
       secondaryFixedDim: colors.secondaryFixedDim,

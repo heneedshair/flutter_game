@@ -2,7 +2,7 @@ import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter_game/ui/features/inventory/inventory_wm.dart';
-import 'package:flutter_game/ui/features/inventory/widgets/inventory_item_widget.dart';
+import 'package:flutter_game/ui/features/inventory/item_widget/inventory_item_widget.dart';
 import 'package:flutter_game/ui/theme/theme.dart';
 
 class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
@@ -25,7 +25,7 @@ class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
                     itemCount: 24,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      mainAxisExtent: 158.6,
+                      mainAxisExtent: 161.3,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game/common/ui/widgets/minimalistic_specs_widget.dart';
 import 'package:flutter_game/data/models/local/inventory_item/inventory_item.dart';
+import 'package:flutter_game/ui/features/inventory/item_widget/widgets/bar_info_widget.dart';
+import 'package:flutter_game/ui/features/inventory/item_widget/widgets/rating_indicator.dart';
 import 'package:flutter_game/ui/theme/theme.dart';
 
 class InventoryItemWidget extends StatelessWidget {
@@ -12,7 +14,6 @@ class InventoryItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.theme.colors;
-    final textStyles = context.theme.text;
 
     final trueExtraColor = item.rare.getColorByRarity(colors);
     final extraColor = trueExtraColor.withAlpha(200);
@@ -33,51 +34,25 @@ class InventoryItemWidget extends StatelessWidget {
       price: item.price,
       onImageWidget: item.map(
         character:
-            (character) => Stack(
-              children: [
-                if (!character.isArtificialSpecs)
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6.2),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: trueExtraColor),
-                    child: Text(
-                      '${character.leftRatings}',
-                      style: context.theme.text.labelMedium?.copyWith(
-                        color: colors.onPrimary,
-                        height: 1,
-                        fontWeight: FontWeight.w600,
-                      ),
+            (character) =>
+                character.isArtificialSpecs
+                    ? null
+                    : RatingIndicator(
+                      backgroundColor: trueExtraColor,
+                      foregroundColor: colors.surface,
+                      value: character.leftRatings,
                     ),
-                  ),
-              ],
-            ),
         chest: (_) => null,
       ),
       barInfoWidget: item.map(
-        character: (character) {
-          final localExtraColor = character.isArtificialSpecs ? colors.primaryContainer : extraColor;
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'lvl',
-                style: textStyles.titleSmall?.copyWith(
-                  color: localExtraColor,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 13,
-                  height: 1,
-                ),
-              ),
-              const SizedBox(width: 2),
-              Text(
-                //TODO заменить на уровень
-                '${character.price}',
-                maxLines: 1,
-                style: textStyles.titleSmall?.copyWith(fontWeight: FontWeight.w600, fontSize: 13, height: 1),
-              ),
-            ],
-          );
-        },
-        chest: (chest) => null,
+        character:
+            (character) => BarInfoWidget(
+              label: 'lvl',
+              //TODO заменить на lvl
+              value: character.price,
+              extraColor: character.isArtificialSpecs ? colors.primaryContainer : extraColor,
+            ),
+        chest: (chest) => BarInfoWidget(label: '\$', value: chest.price, extraColor: extraColor),
       ),
     );
   }

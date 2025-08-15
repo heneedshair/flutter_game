@@ -89,6 +89,7 @@ class _CardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => onItemTap(extraColor),
       child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           border: Border.all(width: 4, color: extraColor),
           borderRadius: BorderRadius.circular(18),
@@ -100,7 +101,7 @@ class _CardWidget extends StatelessWidget {
           children: [
             /// [Image]
             Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Stack(

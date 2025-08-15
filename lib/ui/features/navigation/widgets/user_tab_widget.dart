@@ -8,10 +8,8 @@ class UserTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lablelStyle = context.theme.text.labelLarge?.copyWith(
-      color: context.theme.colors.secondaryFixedDim,
-      height: 1.23,
-    );
+    final textStyles = context.theme.text;
+    final colors = context.theme.colors;
 
     return Row(
       children: [
@@ -24,27 +22,41 @@ class UserTabWidget extends StatelessWidget {
               padding: const EdgeInsets.all(3.5),
               child: Row(
                 children: [
+                  /// [Avatar]
                   Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(width: 2, color: context.theme.colors.onSecondary),
+                      border: Border.all(width: 2, color: colors.onSecondary),
                     ),
-                    child: CircleAvatar(backgroundColor: context.theme.colors.onSecondary, minRadius: 18),
+                    child: CircleAvatar(backgroundColor: colors.onSecondary, minRadius: 18),
                   ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Пользователь',
-                        style: context.theme.text.titleMedium?.copyWith(
-                          color: DefaultTextStyle.of(context).style.color,
-                          fontSize: 20,
-                          height: 1.23,
+                      /// [UserName]
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Text(
+                          'Пользователь',
+                          style: context.theme.text.titleMedium?.copyWith(
+                            color: colors.onSecondary,
+                            fontSize: 20,
+                            height: 1,
+                          ),
                         ),
                       ),
-                      Text('lvl: 14,  \$15', style: lablelStyle),
+
+                      /// [User Info]
+                      Ink(
+                        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
+                        decoration: ShapeDecoration(shape: const StadiumBorder(), color: colors.secondaryFixedDim),
+                        child: Text(
+                          'lvl: 14,  \$15',
+                          style: textStyles.titleSmall?.copyWith(color: context.theme.colors.onSecondary, height: 1),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(width: 10),

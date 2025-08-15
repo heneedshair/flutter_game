@@ -63,15 +63,16 @@ class _CardWidget extends StatelessWidget {
     final colors = context.theme.colors;
     final textStyles = context.theme.text;
 
+    const parrentRadius = 44.0;
     const padding = 12.0;
     const borderWidth = 8.0;
-    const childBorderradius = 24.0;
+    const childBorderRadius = parrentRadius - borderWidth - padding;
 
     return Container(
       padding: const EdgeInsets.all(padding),
       decoration: BoxDecoration(
         border: Border.all(color: borderColor, width: borderWidth),
-        borderRadius: BorderRadius.circular(48),
+        borderRadius: BorderRadius.circular(parrentRadius),
         color: colors.surface,
       ),
       child: Column(
@@ -80,7 +81,7 @@ class _CardWidget extends StatelessWidget {
         children: [
           /// [Image]
           ClipRRect(
-            borderRadius: BorderRadius.circular(childBorderradius),
+            borderRadius: BorderRadius.circular(childBorderRadius),
             child: AspectRatio(aspectRatio: 1, child: Image.asset('assets/cat.png', fit: BoxFit.cover)),
           ),
 
@@ -114,9 +115,9 @@ class _CardWidget extends StatelessWidget {
           Container(
             width: double.maxFinite,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(childBorderradius),
+              borderRadius: BorderRadius.circular(childBorderRadius),
               color: colors.surfaceContainerHighest,
-              border: Border.all(color: colors.surfaceContainer, width: borderWidth),
+              border: Border.all(color: colors.surfaceContainer, width: borderWidth * 3 / 4),
             ),
             child: itemInfoWidget,
           ),

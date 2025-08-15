@@ -54,7 +54,7 @@ class UserTabWidget extends StatelessWidget {
                         decoration: ShapeDecoration(shape: const StadiumBorder(), color: colors.secondaryFixedDim),
                         child: Text(
                           'lvl: 14,  \$15',
-                          style: textStyles.titleSmall?.copyWith(color: context.theme.colors.onSecondary, height: 1),
+                          style: textStyles.titleSmall?.copyWith(color: context.theme.colors.onSecondary, fontSize: 13, height: 1),
                         ),
                       ),
                     ],

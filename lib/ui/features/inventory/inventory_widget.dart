@@ -12,39 +12,44 @@ class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
 
   @override
   Widget build(IInventoryWidgetModel wm) {
-    return EntityStateNotifierBuilder(
-      loadingBuilder: (_, __) => const Center(child: CircularProgressIndicator()),
-      listenableEntityState: wm.itemsListenable,
-      builder:
-          (context, items) =>
-              items == null
-                  ? const SizedBox.shrink()
-                  : GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                    //TODO брать от пользователя
-                    itemCount: 24,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisExtent: 161.3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder:
-                        (_, index) =>
-                            index < items.length
-                                ? InventoryItemWidget(
-                                  onItemTap: (newColor) => wm.onItemTap(index, newColor),
-                                  item: items[index],
-                                )
-                                : Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 2.3, color: context.theme.colors.surfaceContainer),
-                                    borderRadius: BorderRadius.circular(18),
-                                    color: context.theme.colors.surfaceContainerHighest,
-                                  ),
-                                ),
-                  ),
+    return ListView(
+      padding: const EdgeInsets.all(12),
+      children: [
+        EntityStateNotifierBuilder(
+          loadingBuilder: (_, __) => const Center(child: CircularProgressIndicator()),
+          listenableEntityState: wm.itemsListenable,
+          builder:
+              (context, items) =>
+                  items == null
+                      ? const SizedBox.shrink()
+                      : Wrap(
+                        spacing: 10.0,
+                        runSpacing: 10.0,
+                        children: List.generate(
+                          //TODO брать от пользователя
+                          24,
+                          (index) => SizedBox(
+                            //! ГОВНО
+                            width: MediaQuery.of(context).size.width / 3 - 14.7,
+                            child:
+                                index < items.length
+                                    ? InventoryItemWidget(
+                                      onItemTap: (newColor) => wm.onItemTap(index, newColor),
+                                      item: items[index],
+                                    )
+                                    : Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 2.3, color: context.theme.colors.surfaceContainer),
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: context.theme.colors.surfaceContainerHighest,
+                                      ),
+                                    ),
+                          ),
+                        ),
+                      ),
+        ),
+      ],
     );
   }
 }

@@ -79,20 +79,12 @@ class _CardWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// [Image]
-          ClipRRect(
-            borderRadius: BorderRadius.circular(childBorderRadius),
-            child: AspectRatio(aspectRatio: 1, child: Image.asset('assets/cat.png', fit: BoxFit.cover)),
-          ),
-
           /// [Name]
           Material(
-            child: InkWell(
-              borderRadius: BorderRadius.circular(30),
-              splashColor: colors.surfaceContainer,
+            child: GestureDetector(
               onTap: isEditableName ? () {} : null,
-              child: Ink(
-                padding: const EdgeInsets.symmetric(vertical: padding / 4, horizontal: padding / 2),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: padding / 4, horizontal: padding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -101,7 +93,10 @@ class _CardWidget extends StatelessWidget {
                         name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: textStyles.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+                        style: textStyles.titleLarge?.copyWith(
+                          color: colors.primaryFixedDim,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     if (isEditableName) Icon(Icons.edit_outlined, color: colors.primary),
@@ -110,6 +105,14 @@ class _CardWidget extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: padding / 2),
+
+          /// [Image]
+          ClipRRect(
+            borderRadius: BorderRadius.circular(childBorderRadius),
+            child: AspectRatio(aspectRatio: 1, child: Image.asset('assets/cat.png', fit: BoxFit.cover)),
+          ),
+          const SizedBox(height: padding),
 
           /// [Item Info]
           Container(

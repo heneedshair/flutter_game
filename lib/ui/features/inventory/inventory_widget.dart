@@ -25,7 +25,7 @@ class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
                     itemCount: 24,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 0.72,
+                      childAspectRatio: 0.735,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
@@ -39,7 +39,7 @@ class InventoryWidget extends ElementaryWidget<InventoryWidgetModel> {
                                 : Container(
                                   padding: const EdgeInsets.symmetric(vertical: 5),
                                   decoration: BoxDecoration(
-                                    border: Border.all(width: 4, color: context.theme.colors.surfaceContainer),
+                                    border: Border.all(width: 3.5, color: context.theme.colors.surfaceContainer),
                                     borderRadius: BorderRadius.circular(18),
                                     color: context.theme.colors.surfaceContainerHighest,
                                   ),

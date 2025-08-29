@@ -91,7 +91,7 @@ class _CardWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          border: Border.all(width: 4, color: extraColor),
+          border: Border.all(width: 3.5, color: extraColor),
           borderRadius: BorderRadius.circular(18),
           color: colors.surfaceContainerHighest,
         ),
@@ -101,14 +101,14 @@ class _CardWidget extends StatelessWidget {
           children: [
             /// [Image]
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 6),
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(8.5),
                       clipBehavior: Clip.hardEdge,
                       //TODO заменить на network
                       child: Image.asset(
@@ -144,7 +144,12 @@ class _CardWidget extends StatelessWidget {
             /// [Progress Bar]
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: MinimalisticSpecsBar(value: 7, filledColor: barColor, emptyColor: colors.surfaceContainer),
+              child: MinimalisticSpecsBar(
+                value: 7,
+                filledColor: barColor,
+                emptyColor: colors.surfaceContainer,
+                height: 3.5,
+              ),
             ),
             const SizedBox(height: 3),
 

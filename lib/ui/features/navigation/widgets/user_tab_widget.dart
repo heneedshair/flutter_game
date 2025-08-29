@@ -33,20 +33,19 @@ class UserTabWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       /// [UserName]
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
-                        child: Text(
-                          'Пользователь',
-                          style: context.theme.text.titleMedium?.copyWith(
-                            color: colors.onSecondary,
-                            fontSize: 20,
-                            height: 1,
-                          ),
+                      Text(
+                        'Пользователь',
+                        style: context.theme.text.titleMedium?.copyWith(
+                          color: colors.onSecondary,
+                          fontSize: 20,
+                          height: 1,
                         ),
                       ),
+                      const SizedBox(height: 3.5),
 
                       /// [User Info]
                       Ink(
@@ -54,7 +53,11 @@ class UserTabWidget extends StatelessWidget {
                         decoration: ShapeDecoration(shape: const StadiumBorder(), color: colors.secondaryFixedDim),
                         child: Text(
                           'lvl: 14,  \$15',
-                          style: textStyles.titleSmall?.copyWith(color: context.theme.colors.onSecondary, fontSize: 13, height: 1),
+                          style: textStyles.titleSmall?.copyWith(
+                            color: context.theme.colors.onSecondary,
+                            fontSize: 13,
+                            height: 1,
+                          ),
                         ),
                       ),
                     ],
